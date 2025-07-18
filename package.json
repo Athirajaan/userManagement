@@ -1,0 +1,26 @@
+{
+  "name": "week-21",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev":"nodemon server/app",
+    "start":"node server/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Athirajaan/userManagement.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Athirajaan/userManagement/issues"
+  },
+  "homepage": "https://github.com/Athirajaan/userManagement#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
