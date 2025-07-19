@@ -1,24 +1,56 @@
 import React from 'react'
-
 import { useState } from "react";
 import { Mail, Lock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Sign In Data", form);
+    try {
+      setLoading(true);
+      const res = await fetch("/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      setLoading(false);
+
+      if (!res.ok) {
+        toast.error(data.error || "Login failed");
+        return;
+      }
+
+      if (data.user.role === "admin") {
+        toast.error("Please use the admin login page");
+        return;
+      }
+
+      
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      toast.success("Login successful!");
+      navigate("/");
+
+    } catch (err) {
+      setLoading(false);
+      toast.error("Network error. Please try again.");
+    }
   };
 
   return (
     <div className="flex h-screen">
-      {/* Left Side Image */}
       <div className="w-1/2 hidden md:block">
         <img
           src="/gojo.jpg"
@@ -27,7 +59,6 @@ export default function SignIn() {
         />
       </div>
 
-      {/* Right Side Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-white px-6">
         <div className="max-w-md w-full space-y-6">
           <h2 className="text-3xl font-bold text-gray-800">Sign in to your account</h2>
@@ -58,9 +89,10 @@ export default function SignIn() {
 
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
             >
-              Sign In
+              {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>
 
@@ -75,4 +107,5 @@ export default function SignIn() {
     </div>
   );
 }
+
 

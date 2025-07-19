@@ -1,5 +1,8 @@
 import React from "react";
 import {BrowserRouter,Routes,Route} from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import ToastProvider from "./components/toastProvider";
+import 'react-toastify/dist/ReactToastify.css';
 import Signin from "./pages/auth/Signin"
 import Signup from "./pages/auth/Signup"
 import Home from "./pages/user/Home"
@@ -12,7 +15,9 @@ import AdminLayout from "./layouts/AdminLayout";
 
 const App = () => {
   return (
+   
     <BrowserRouter>
+     <ToastProvider/>
      <Routes>
       {/* auth route */}
       <Route path='/login' element={<Signin/>}/>
