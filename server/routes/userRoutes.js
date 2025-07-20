@@ -1,8 +1,11 @@
-import express from "express"
-import {LoadSignIn} from "../controllers/userController.js"
+import express from "express";
+import { verifyToken } from "../middlewares/verifyToken.js";
+import { getUserProfile,updateUserProfile } from "../controllers/userController.js";
 
 const router=express.Router();
 
-router.get("/", LoadSignIn)
+router.get('/profile', verifyToken,getUserProfile);
+router.put('/profile', verifyToken,updateUserProfile);
+
 
 export default router;

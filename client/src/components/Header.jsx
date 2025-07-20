@@ -2,11 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { LogOut, Home } from "lucide-react";
 
-const user = {
-  name: "Athira",
-  avatar: "", // Empty to test fallback
-};
-
 const handleLogout = () => {
   console.log("Logging out...");
 };
@@ -16,7 +11,6 @@ export default function Header() {
     <nav className="bg-white border-b px-6 py-4 shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
-        {/* Left: App Logo */}
        <Link
         to="/"
      className="flex items-center gap-2 text-2xl font-extrabold text-blue-600 hover:text-blue-700 transition"
@@ -37,22 +31,26 @@ export default function Header() {
           </Link>
 
           {/* Avatar */}
-          {user.avatar ? (
+          {/* {user.avatar ? (
             <img
-              src={user.avatar}
-              alt={user.name}
               className="h-10 w-10 rounded-full object-cover border-2 border-blue-500"
             />
           ) : (
             <div className="h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
               {user.name[0].toUpperCase()}
             </div>
-          )}
+          )} */}
 
           {/* Name */}
-          <span className="font-medium text-gray-800 text-sm tracking-wide">
-            {user.name}
-          </span>
+          
+          {/* <span className="font-medium text-gray-800 text-sm tracking-wide">
+            profile
+          </span> */}
+
+
+           <Link to="/Profile" className="hover:text-blue-600 transition">
+          <h2>profile</h2>
+          </Link>
 
           {/* Logout icon */}
           <button onClick={handleLogout} className="hover:text-red-500 transition">

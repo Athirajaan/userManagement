@@ -10,7 +10,6 @@ export default function AdminHeader() {
     <nav className="bg-white border-b px-6 py-4 shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
-        {/* Left: Admin Info (Icon + Text Block) */}
         <div className="flex items-start gap-3 text-blue-700">
           <Shield className="h-8 w-8 mt-1" />
           <div>
@@ -21,7 +20,6 @@ export default function AdminHeader() {
           </div>
         </div>
 
-        {/* Right: Logout Icon */}
         <button
           onClick={handleLogout}
           className="hover:text-red-500 transition"
