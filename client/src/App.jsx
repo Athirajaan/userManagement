@@ -22,7 +22,7 @@ const App = () => {
       {/* auth route */}
       <Route path='/login' element={<Signin/>}/>
       <Route path='/signup' element={<Signup/>}/>
-      <Route path='/admin/login' element={<AdminLogin/>}/>
+      <Route path='/login-admin' element={<AdminLogin/>}/>
 
        {/* user routes */}
        <Route element={<UserLayout/>}>

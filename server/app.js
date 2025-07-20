@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js"
 import authRoutes from "./routes/authRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js";
+import helmet from "helmet";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,9 +16,15 @@ const app=express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/",userRoutes);
+app.use("/api",userRoutes);
 app.use("/auth",authRoutes);
 app.use("/admin",adminRoutes);
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false, 
+  })
+);
 
 app.use((err,req,res,next)=>{
    const statusCode=err.statusCode || 500;
@@ -29,7 +36,7 @@ app.use((err,req,res,next)=>{
     statusCode
    })
 })
-app.listen(3000 ,()=>{
+app.listen(5000 ,()=>{
     console.log("server is listening on port 3000 !")
 })
 

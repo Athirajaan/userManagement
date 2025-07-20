@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function UserModal({ user, onClose, onSave }) {
   const [form, setForm] = useState({
@@ -9,30 +10,53 @@ export default function UserModal({ user, onClose, onSave }) {
     password: "",
   });
 
-  const isEdit = Boolean(user);
+  const isEdit = Boolean(user && user._id); 
 
   useEffect(() => {
     if (isEdit) {
       setForm({
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        password: "", // password not needed in edit mode
+        name: user.name || "",
+        email: user.email || "",
+        role: user.role || "user",
+        password: "",
+      });
+    } else {
+    
+      setForm({
+        name: "",
+        email: "",
+        role: "user",
+        password: "",
       });
     }
-  }, [user]);
+  }, [user, isEdit]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
-    if (!form.name || !form.email || (!isEdit && !form.password)) return;
+    const { name, email, password, role } = form;
 
-    onSave({
-      ...user,
-      ...form,
-    });
+    if (!name || name.trim().length < 3) {
+      return toast.error("Name must be at least 3 characters");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      return toast.error("Please enter a valid email");
+    }
+
+    if (!isEdit) {
+      if (!password) {
+        return toast.error("Password is required");
+      }
+      if (password.length < 8) {
+        return toast.error("Password must be at least 8 characters");
+      }
+    }
+
+    onSave({ ...user, ...form });
   };
 
   return (

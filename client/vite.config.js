@@ -4,12 +4,21 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
   ],
-  server:{
-    proxy:{
+  server: {
+    proxy: {
       '/auth': {
-        target:"http://localhost:3000",
-        changeOrigin:true,
-      }
-    }
-  }
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+      '/admin': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+    },
+  },
+
 })
